@@ -1,0 +1,22 @@
+O problema de PROPS DRILLING ocorre em situações onde é necessário passar dados através de múltiplos componentes, mesmo que esses dados sejam necessários apenas por alguns dos componentes intermediários. Isso pode resultar em um código confuso e difícil de manter, pois os dados precisam ser passados ​​por todos os componentes intermediários, mesmo que eles não os utilizem. Por exemplo, temos um ComponenteA, que é pai do ComponenteB, que por sua vez é pai do ComponenteC, seguindo essa lógica até um componenteF. 
+Vamos imaginar que o componenteF deseje receber tal dado do ComponenteA, aquele lá de cima(componente inicial). Esse dado que eu desejo passar, provavelmente seria passado por props, ou seja, teria que passar de pai pra filho, passando por todos os outros componentes até chegar no que realmente precisa, sendo que bem possívelmente esses componentes nem precisariam desse prop, causando essa "Perfuração" como exposto em seu nome. 
+
+[ ComponenteA ]  
+        |
+        |
+        |--->  [ ComponenteB ]
+                        |
+                        |
+                        |---> [ ComponenteC ]
+                                    |
+                                    |
+                                    |---> [ ComponenteD ]
+                                                |
+                                                |
+                                                |---> [ ComponenteE ]
+                                                            |
+                                                            |
+                                                            |---> [ ComponenteF ]
+                            
+
+uma solução para esse problema é o uso de contextos. O contexto - createContext() - permite compartilhar dados entre componentes sem a necessidade de passá-los explicitamente como props através de cada nível intermediário. Servindo assim, como seu próprio nome ja diz, como um gancho que pega o dado necessário para o componente necessitado. 
